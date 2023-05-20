@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -28,7 +29,7 @@ public class User {
 	@Column(name = "name", length = 50)
 	private String nombre;
 	
-	@Column(length = 50)
+	@Column(length = 50, unique = true)
 	private String email;
 	
 	@Column(name = "birth_date")
@@ -36,11 +37,16 @@ public class User {
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)//esto es para la clave foranea, pone en cascada para todas la spoeraciones y el tipo de busqueda fetch 
 	@JsonManagedReference //para que no nos de error de stack over flow cuando se consuma mediante REST
+	@JsonIgnore
 	private List<Post> posts = new ArrayList<>();
-	
 	
 	public User() {
 		
+	}
+	
+	
+	public User(Long id) {
+		this.id = id;
 	}
 	
 

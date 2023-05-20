@@ -3,10 +3,12 @@ package com.pruebas.springboot.jpa.repository;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -38,6 +40,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
 			+ " from User u "
 			+ " where u.fechaCumpleanios=:fecha"
 			+ " and u.email=:email")
-	Optional<UserDto> getAllByFechaCumpleaniosAndEmail(@Param("fecha")LocalDate date,@Param("email") String email);
-
+	Optional<UserDto> getAllByFechaCumpleaniosAndEmail(@Param("fecha")LocalDate date,@Param("email") String email);	
+	
+	
 }
